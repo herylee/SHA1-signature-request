@@ -7,4 +7,7 @@
 详见  RequestDemo.java
 
 
+二、SHA1加密
+详见SignDemoMain.java
 
+传入四个字段，即可加密，生成加密串
