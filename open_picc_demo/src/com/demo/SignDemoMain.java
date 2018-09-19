@@ -26,6 +26,18 @@ public class SignDemoMain {
 		System.out.println(signature);
 	}
 	
+/***********
+	
+appKey: ff7a5ed759b4418cb12ce31fc19f42e2021,
+
+appSecret: 3810d48e4d7f47d99d52bad99f34c4a1845,
+
+nonStr: 121321231231231221332,
+
+timestamp: 199003141992015
+	
+*************/
+	
 	private static String getNonceStr() {
 		Random random = new Random();
 		return MD5Util.MD5Encode(String.valueOf(random.nextInt(10000)), "GBK");
