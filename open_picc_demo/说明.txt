@@ -1,0 +1,68 @@
+加密方式
+
+一、加密参数内容：
+
+appKey
+String
+合作商的唯一标识APP_KEY
+
+appSecret
+String
+合作商的密钥APP_SECRET
+
+timestamp
+Long
+时间戳
+
+nonStr
+String
+随机字符串
+
+二、加密逻辑：
+
+1、对appKey、appSecret、timestamp、nonStr做字典排序，然后使用sha1算法进行加密，生成一个sign（签名证书）
+
+2、注意规则：
+
+1）参数名ASCII码从小到大排序（字典序）
+
+2）参数名区分大小写
+
+3）验证调用时，传送的sign参数不参与签名，将生成的签名与该sign值作校验。
+
+
+3、例子：
+
+假设传送参数如下：
+
+appKey: ff7a5ed759b4418cb12ce31fc19f42e2021,
+
+appSecret: 3810d48e4d7f47d99d52bad99f34c4a1845,
+
+nonStr: 121321231231231221332,
+
+timestamp: 199003141992015
+
+第一步：对参数按照key=value的格式，并按照参数名ASCII字典序排序如下：
+
+str="appKey=ff7a5ed759b4418cb12ce31fc19f42e2021&appSecret=3810d48e4d7f47d99d52bad99f34c4a1845&nonStr=121321231231231221332&timestamp=199003141992015";
+
+第二步：使用SHA1签名方式加密
+
+sign=Sha1Util.getSha1(str)// Sha1Util是加密类，在demo中有
+
+最终发送报文中的数据
+
+{
+  "requesthead": {
+    "appKey": "ff7a5ed759b4418cb12ce31fc19f42e202\"",
+    "nonStr": "121321231231231221332",
+    "timestamp": "199003141992015",
+    "sign": "{上一步加密后得到的sign值}",
+    "projectId": "项目ID",
+    "ispOrderNo": "合作商订单ID"
+  },
+  "policyInfo": [
+    {}
+  ]
+}
